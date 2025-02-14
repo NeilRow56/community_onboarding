@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/card";
 // import Member from '@/components/member'
 
-export default async function Company({
-  params: { slug },
-}: {
-  params: { slug: string };
+export default async function Company(props: {
+  params: Promise<{
+    slug: string;
+  }>;
 }) {
+  const { slug } = await props.params;
   const company = await getCompanyBySlug(slug);
 
   if (!company) {
