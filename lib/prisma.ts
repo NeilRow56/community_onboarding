@@ -1,26 +1,21 @@
-import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
+// TO Make this edge-compatible
+import { Pool } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { Pool, neonConfig } from "@neondatabase/serverless";
+const prismaClientSingleton = () => {
+  // TO Make this edge-compatible
 
-import ws from "ws";
+  const neon = new Pool({ connectionString: process.env.POSTGRES_PRISMA_URL });
+  const adapter = new PrismaNeon(neon);
+  return new PrismaClient({ adapter });
+};
 
-neonConfig.webSocketConstructor = ws;
+declare const globalThis: {
+  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
+} & typeof global;
 
-// To work in edge environments (Cloudflare Workers, Vercel Edge, etc.), enable querying over fetch
-neonConfig.poolQueryViaFetch = true;
+const db = globalThis.prismaGlobal ?? prismaClientSingleton();
 
-//Type definitions
-declare global {
-  var prisma: PrismaClient | undefined;
-}
+export default db;
 
-const connectionString = `${process.env.DATABASE_URL}`;
-
-const pool = new Pool({ connectionString });
-const adapter = new PrismaNeon(pool);
-const prisma = global.prisma || new PrismaClient({ adapter });
-
-if (process.env.NODE_ENV === "development") global.prisma = prisma;
-
-export default prisma;
+if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = db;
