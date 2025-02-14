@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | Prostore`,
+    template: `%s | Community`,
     default: APP_NAME,
   },
   description: APP_DESCRIPTION,

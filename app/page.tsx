@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "HomePage",
+};
+
 const HomePage = () => {
   return (
     <div className="mt-24">
