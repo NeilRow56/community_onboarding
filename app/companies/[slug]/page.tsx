@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import Member from "@/components/member";
 // import Member from '@/components/member'
 
 export default async function Company(props: {
@@ -146,10 +147,9 @@ export default async function Company(props: {
                 role="list"
                 className="mx-auto mt-16 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6"
               >
-                MEMBERS
-                {/* {company.staff.map(member => (
+                {company.staff.map((member) => (
                   <Member key={member.id} member={member} />
-                ))} */}
+                ))}
               </ul>
             </div>
           </div>
