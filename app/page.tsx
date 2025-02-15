@@ -1,5 +1,6 @@
 import CompanyItem from "@/components/company-item";
 import { getCompanies } from "@/lib/companies";
+
 import Link from "next/link";
 
 export const metadata = {
@@ -8,6 +9,7 @@ export const metadata = {
 
 const HomePage = async () => {
   const companies = await getCompanies();
+
   return (
     <section className="pt-40 pb-40">
       <div className="container">

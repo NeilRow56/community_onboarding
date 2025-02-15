@@ -9,7 +9,7 @@ export async function getUsers(limit?: number) {
       },
       ...(limit ? { take: limit } : {}),
     });
-    return { users };
+    return users;
   } catch (error) {
     return { error };
   }
