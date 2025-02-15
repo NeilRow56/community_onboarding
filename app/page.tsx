@@ -1,26 +1,27 @@
-import CompanyItem from "@/components/company-item";
-import { getCompanies } from "@/lib/companies";
+import CompanyItem from '@/components/company-item'
+import { getCompanies } from '@/lib/companies'
+import prisma from '@/lib/prisma'
 
-import Link from "next/link";
+import Link from 'next/link'
 
 export const metadata = {
-  title: "HomePage",
-};
+  title: 'HomePage'
+}
 
 const HomePage = async () => {
-  const companies = await getCompanies();
-
+  const companies = await getCompanies()
+  const users = await prisma.user.findMany()
   return (
-    <section className="pt-40 pb-40">
-      <div className="container">
+    <section className='pb-40 pt-40'>
+      <div className='container'>
         <div>
-          <h1 className="font-serif text-3xl">New companies</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <h1 className='font-serif text-3xl'>New companies</h1>
+          <p className='mt-1 text-sm text-muted-foreground'>
             Recently joined companies
           </p>
 
-          <ul className="4xl:grid-cols-3 mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:max-2xl:grid-cols-3">
-            {companies.map((company) => (
+          <ul className='4xl:grid-cols-3 mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:max-2xl:grid-cols-3'>
+            {companies.map(company => (
               <li key={company.id}>
                 <CompanyItem company={company} />
               </li>
@@ -28,16 +29,20 @@ const HomePage = async () => {
           </ul>
 
           <Link
-            href="/companies"
-            className="mt-8 inline-flex items-center gap-2 transition-colors hover:text-fuchsia-500"
+            href='/companies'
+            className='mt-8 inline-flex items-center gap-2 transition-colors hover:text-fuchsia-500'
           >
             View all companies
-            <span aria-hidden="true">→</span>
+            <span aria-hidden='true'>→</span>
           </Link>
+        </div>
+        <div>
+          <h1>Hello App</h1>
+          {JSON.stringify(users)}
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
