@@ -7,12 +7,12 @@ export default async function Admin() {
   const users = (await client.users.getUserList()).data
 
   return (
-    <>
+    <div className='mt-24'>
       {users.map(user => {
         return (
           <div
             key={user.id}
-            className={`mt-24 flex items-center justify-between gap-4 p-4 ${
+            className={`flex items-center justify-between gap-4 p-4 ${
               users.indexOf(user) % 2 === 0
                 ? 'bg-neutral-50 dark:bg-neutral-800'
                 : 'bg-white dark:bg-neutral-900'
@@ -72,6 +72,6 @@ export default async function Admin() {
           </div>
         )
       })}
-    </>
+    </div>
   )
 }

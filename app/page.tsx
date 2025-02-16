@@ -1,6 +1,5 @@
 import CompanyItem from '@/components/company-item'
 import { getCompanies } from '@/lib/companies'
-import prisma from '@/lib/prisma'
 
 import Link from 'next/link'
 
@@ -10,7 +9,7 @@ export const metadata = {
 
 const HomePage = async () => {
   const companies = await getCompanies()
-  const users = await prisma.user.findMany()
+
   return (
     <section className='pb-40 pt-40'>
       <div className='container'>
@@ -35,10 +34,6 @@ const HomePage = async () => {
             View all companies
             <span aria-hidden='true'>→</span>
           </Link>
-        </div>
-        <div>
-          <h1>Hello App</h1>
-          {JSON.stringify(users)}
         </div>
       </div>
     </section>
